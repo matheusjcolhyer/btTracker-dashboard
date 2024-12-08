@@ -7,8 +7,41 @@ import RiskGeoMap from "../components/overview/RiskGeoMap";
 import AreaRiskChart from "../components/overview/AreaRiskChart";
 import RiskAreasTable from "../components/overview/RiskAreasTable";
 
+import api from "../services/api";
+import { useEffect, useState } from "react";
+
 const OverviewPage = () => {
-  console.log("OverviewPage renderizado");
+  const [metrics, setMetrics] = useState();
+
+  useEffect(() => {
+    api
+      .get("/fireRisk")
+      .then((response) => {
+        const dataWithPercentage = calculateAndAddPercentage(
+          response.data?.items
+        );
+        setMetrics(dataWithPercentage);
+      })
+      .catch((err) => {
+        console.error("Ops! ocorreu um erro: " + err);
+      });
+  }, []);
+
+  const calculateAndAddPercentage = (data) => {
+    if (!data || data.length === 0) {
+      return { items: data, percentage: 0 }; // Retorna estrutura com porcentagem 0 se o array estiver vazio
+    }
+    const soma = data.reduce(
+      (acumulador, item) => acumulador + Number(item.result),
+      0
+    );
+    const porcentagem = (soma / data.length) * 100;
+    return {
+      items: data, // Array original
+      percentage: porcentagem.toFixed(2), // Porcentagem com duas casas decimais
+    };
+  };
+
   return (
     <div
       className="flex-1 overflow-auto relative z-10 scrollbar-thin"
@@ -59,7 +92,7 @@ const OverviewPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <RiskGeoMap />
             <AreaRiskChart />
-            <RiskAreasTable />
+            <RiskAreasTable metrics={{ metrics }} />
           </div>
         </motion.div>
       </main>
