@@ -176,8 +176,9 @@ const RiskGeoMap = () => {
 
   // Registrar o mapa ao carregar
   useEffect(() => {
-    // Registra o mapa personalizado com o nome 'amazonas'
-    echarts.registerMap("amazonas", amMap);
+    if (!echarts.getMap("amazonas")) {
+      echarts.registerMap("amazonas", amMap); // Registra o mapa apenas se ainda não estiver registrado
+    }
   }, []);
 
   return (

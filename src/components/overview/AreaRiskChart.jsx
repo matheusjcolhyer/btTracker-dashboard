@@ -87,7 +87,9 @@ const AreaRiskChart = () => {
       <h2 className="text-lg font-medium mb-4 text-gray-100">
         Áreas de risco por município
       </h2>
-      <ReactECharts option={options} style={{ height: "400px" }} />
+      <div className="overflow-y-auto max-h-80 scrollbar-thin">
+        <ReactECharts option={options} style={{ height: "400px" }} />
+      </div>
     </motion.div>
   );
 };
