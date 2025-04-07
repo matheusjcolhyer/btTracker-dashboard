@@ -151,17 +151,6 @@ const RiskGeoMap = () => {
       borderWidth: 0,
       textStyle: { color: "#FFF" },
     },
-    geo: {
-      map: "amazonas", // Nome que usaremos ao registrar o mapa
-      roam: true, // Permite zoom e movimento no mapa
-      label: {
-        show: false,
-      },
-      itemStyle: {
-        borderColor: "transparent", // Faz as bordas ficarem invisíveis
-        borderWidth: 0, // Remove a largura das bordas
-      },
-    },
     series: [
       {
         name: "Regiões do Amazonas",
@@ -169,6 +158,27 @@ const RiskGeoMap = () => {
         map: "amazonas",
         aspectScale: 1.0,
         selectedMode: "single",
+        roam: true,
+        itemStyle: {
+          areaColor: "#444", // cor de fundo da região
+          borderColor: "#aaaaaa", // borda clara
+          borderWidth: 1.5, // espessura da linha
+          shadowColor: "rgba(0, 0, 0, 0.3)",
+          shadowBlur: 6,
+        },
+        emphasis: {
+          itemStyle: {
+            areaColor: "#B13B2F", // ao passar o mouse
+            borderColor: "#FFF",
+            borderWidth: 2,
+          },
+        },
+        select: {
+          itemStyle: {
+            areaColor: "#eb695b",
+            borderColor: "#FFF",
+          },
+        },
         data: regionsData,
       },
     ],
@@ -193,9 +203,14 @@ const RiskGeoMap = () => {
         Regiões do Amazonas
       </h2>
 
-      <div className="h-80">
-        <ResponsiveContainer width="100%" height="100%">
-          <ReactEcharts option={option} />
+      <div className="w-full">
+        <ResponsiveContainer width="100%" aspect={1.2}>
+          <ReactEcharts
+            option={option}
+            notMerge={true}
+            lazyUpdate={true}
+            style={{ height: "320%", width: "100%" }}
+          />
         </ResponsiveContainer>
       </div>
     </motion.div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"; // Certifique-se de que o caminho está correto
+import { signInWithEmailAndPassword, signInAnonymously } from "firebase/auth";
+import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -13,9 +13,18 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/"); // Redireciona para a página principal após o login
+      navigate("/");
     } catch (err) {
       setError("Email ou senha incorretos");
+    }
+  };
+
+  const handleGuestLogin = async () => {
+    try {
+      await signInAnonymously(auth);
+      navigate("/");
+    } catch (err) {
+      setError("Não foi possível entrar como convidado.");
     }
   };
 
@@ -40,33 +49,29 @@ const LoginPage = () => {
             <label htmlFor="email" className="block text-sm mb-2">
               Usuário:
             </label>
-            <div className="relative">
-              <input
-                type="email"
-                id="email"
-                placeholder="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full p-3 rounded-lg bg-gray-900 border border-gray-600 placeholder-gray-500 text-gray-100"
-              />
-            </div>
+            <input
+              type="email"
+              id="email"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full p-3 rounded-lg bg-gray-900 border border-gray-600 placeholder-gray-500 text-gray-100"
+            />
           </div>
           <div>
             <label htmlFor="password" className="block text-sm mb-2">
               Senha:
             </label>
-            <div className="relative">
-              <input
-                type="password"
-                id="password"
-                placeholder=""
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full p-3 rounded-lg bg-gray-900 border border-gray-600 placeholder-gray-500 text-gray-100"
-              />
-            </div>
+            <input
+              type="password"
+              id="password"
+              placeholder=""
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full p-3 rounded-lg bg-gray-900 border border-gray-600 placeholder-gray-500 text-gray-100"
+            />
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -91,6 +96,14 @@ const LoginPage = () => {
             Entrar
           </button>
         </form>
+
+        {/* Botão de convidado */}
+        <button
+          onClick={handleGuestLogin}
+          className="w-full mt-4 py-3 border border-green-400 text-white rounded-lg bg-green-500 hover:text-white transition"
+        >
+          Brazil Conference Guest
+        </button>
       </div>
     </div>
   );

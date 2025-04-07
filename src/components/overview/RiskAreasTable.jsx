@@ -218,7 +218,7 @@ const RiskAreasTable = ({ metrics }) => {
                     : { backgroundColor: "#1C1C1C" }
                 }
               >
-                <td className="px-4 py-2">{item.area}</td>
+                <td className="px-4 py-2 whitespace-nowrap">{item.area}</td>
                 <td className="px-4 py-2">{item.municipio}</td>
                 <td className="px-4 py-2">
                   <div

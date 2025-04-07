@@ -3,10 +3,12 @@ import { useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase"; // Certifique-se de que o caminho para o Firebase está correto
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -47,12 +49,33 @@ const Header = () => {
             className="flex items-center space-x-2 cursor-pointer"
             onClick={toggleDropdown}
           >
-            <img
-              src="https://media.istockphoto.com/id/1437816897/pt/foto/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring-or.jpg?s=612x612&w=0&k=20&c=OsiL-G3rU8NzppNGl3Yh9exwYzoSfCrRb9gxawy1VR4="
-              alt="User Avatar"
-              className="w-10 h-10 rounded-full object-cover"
-            />
-            <span className="text-gray-100 font-medium">Mirella Alves</span>
+            {user?.isAnonymous ? (
+              <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="white"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 1115 0H4.5z"
+                  />
+                </svg>
+              </div>
+            ) : (
+              <img
+                src="https://media.istockphoto.com/id/1437816897/pt/foto/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring-or.jpg?s=612x612&w=0&k=20&c=OsiL-G3rU8NzppNGl3Yh9exwYzoSfCrRb9gxawy1VR4="
+                alt="User Avatar"
+                className="w-10 h-10 rounded-full object-cover border border-gray-600"
+              />
+            )}
+            <span className="text-gray-100 font-medium">
+              {user?.isAnonymous ? "Convidado" : "Mirella Alves"}
+            </span>
           </div>
 
           {/* Dropdown Menu */}

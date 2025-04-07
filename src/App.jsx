@@ -10,11 +10,13 @@ function App() {
   return (
     <div>
       {user ? ( // Se o usuário estiver autenticado, mostra o Dashboard
-        <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
+        <div className="relative h-screen bg-gray-900 text-gray-100 overflow-hidden">
           <Sidebar />
-          <Routes>
-            <Route path="/" element={<OverviewPage />} />
-          </Routes>
+          <div className="h-full overflow-auto">
+            <Routes>
+              <Route path="/" element={<OverviewPage />} />
+            </Routes>
+          </div>
         </div>
       ) : (
         // Caso contrário, redireciona para a tela de login

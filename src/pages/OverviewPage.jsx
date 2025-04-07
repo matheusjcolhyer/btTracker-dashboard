@@ -29,7 +29,7 @@ const OverviewPage = () => {
 
   const calculateAndAddPercentage = (data) => {
     if (!data || data.length === 0) {
-      return { items: data, percentage: 0 }; // Retorna estrutura com porcentagem 0 se o array estiver vazio
+      return { items: data, percentage: 0 };
     }
     const soma = data.reduce(
       (acumulador, item) => acumulador + Number(item.result),
@@ -37,8 +37,8 @@ const OverviewPage = () => {
     );
     const porcentagem = (soma / data.length) * 100;
     return {
-      items: data, // Array original
-      percentage: porcentagem.toFixed(2), // Porcentagem com duas casas decimais
+      items: data,
+      percentage: porcentagem.toFixed(2),
     };
   };
 
@@ -49,10 +49,9 @@ const OverviewPage = () => {
     >
       <Header title="" />
 
-      <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
-        <h1 className="flex-1 overflow-auto relative z-10 text-3xl font-bold pb-10">
-          Dashboard
-        </h1>
+      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold pb-10">Dashboard</h1>
+
         {/* STATS */}
         <motion.div
           className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8"
@@ -82,21 +81,34 @@ const OverviewPage = () => {
             iconColor="#FF7E00"
           />
         </motion.div>
+
         {/* CHARTS */}
         <motion.div
-          className="grid grid-cols-1 gap-5 w-full mb-8"
+          className="flex flex-col gap-8 lg:grid lg:grid-cols-2 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="w-full">
             <RiskGeoMap />
-            <AreaRiskChart />
-            <RiskAreasTable metrics={{ metrics }} />
           </div>
+          <div className="w-full">
+            <AreaRiskChart />
+          </div>
+        </motion.div>
+
+        {/* TABELA */}
+        <motion.div
+          className="w-full overflow-x-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <RiskAreasTable metrics={{ metrics }} />
         </motion.div>
       </main>
     </div>
   );
 };
+
 export default OverviewPage;
