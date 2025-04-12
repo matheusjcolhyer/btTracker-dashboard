@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css"; // Não esqueça de importar o CSS do Leaflet
 import L from "leaflet";
 
 const DefaultIcon = L.icon({
-  iconUrl: "src/assets/marker-48.png",
+  iconUrl: "/marker-48.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png",
   iconSize: [45, 45], // Tamanho padrão do ícone
   iconAnchor: [12, 41], // Ponto de ancoragem
