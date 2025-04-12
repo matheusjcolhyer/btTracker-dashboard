@@ -32,14 +32,14 @@ const LoginPage = () => {
     <div
       className="flex h-screen items-center justify-center"
       style={{
-        backgroundImage: "url('src/assets/login-background.png')",
+        backgroundImage: "url('/login-background.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
       <div className="bg-gray-800 flex flex-col justify-center bg-opacity-50 p-10 rounded-lg shadow-lg text-gray-100 max-w-md w-full">
         <div className="flex items-center justify-center">
-          <img src="src/assets/logo.png" className="w-32 mx-auto" alt="Logo" />
+          <img src="/logo.png" className="w-32 mx-auto" alt="Logo" />
         </div>
         <h1 className="text-3xl font-semibold mb-6 text-center">
           Bem vindo ao <span className="text-red-500">BTTracker</span>
@@ -52,7 +52,7 @@ const LoginPage = () => {
             <input
               type="email"
               id="email"
-              placeholder="email"
+              placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -66,7 +66,7 @@ const LoginPage = () => {
             <input
               type="password"
               id="password"
-              placeholder=""
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
